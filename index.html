@@ -86,7 +86,9 @@
             box-shadow: rgba(5, 330, 100, 55) 2px 6px 10px  5px;
         }
         p{
-            margin:10px;
+            font-size: 22px;
+            margin:8px;
+            font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
         }
         
     </style>
@@ -116,27 +118,45 @@
             let yearIs = document.getElementById('years');
             let monthsIs = document.getElementById('months');
             let daysIs = document.getElementById('days');
-            let userEnteDate = document.querySelector("input").value;
-            let birthDateIs = new Date(userEnteDate);
-            console.log(birthDateIs);
+
             let today = new Date();
 
+            let userEnteDate = document.querySelector("input").value;
+            let birthDateIs = new Date(userEnteDate);
+            // console.log(birthDateIs);
+            
+
             // age 
-            var ageIs = today.getFullYear() - birthDateIs.getFullYear();
-            yearIs.innerText = ageIs;
-            console.log('age'+ageIs);
+            var age = today.getFullYear() - birthDateIs.getFullYear();
+            yearIs.innerText = age;
+            console.log('age'+age);
 
             // months
-            var months = birthDateIs.getMonth() - today.getMonth();
-            monthsIs.innerText = months;
+            var months = today.getMonth() - birthDateIs.getMonth();
+            
             console.log('months'+ months);
 
+            if(months < 0 || (months === 0 && today.getDate() < birthDateIs.getDate())){
+                age--;
+                months+=12;
+                monthsIs.innerText = months;
+            }
+            monthsIs.innerText = months;
 
             // Days
-            var todayDays = birthDateIs.getDay() - today.getDay();
-            console.log(birthDateIs.getDay() , today.getDay())
+            var todayDays = today.getDay() - birthDateIs.getDay();
+            // console.log(birthDateIs.getDay() , today.getDay())
+            console.log("days :- "+todayDays);            
+            
+            // if(todayDays < 0){
+            //     months--;
+            //     var tempDate = new Date(today.getFullYear(), today.getMonth(), 0);
+            //     daysIs += tempDate.getDate();
+            //     daysIs.innerText = todayDays;
+            // }
+
             daysIs.innerText = todayDays;
-            console.log("days :- "+day);
+
 
         });
          
