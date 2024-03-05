@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
+
         * {
             padding: 0;
             margin: 0;
@@ -37,7 +38,10 @@
             height: fit-content;
             width: fit-content;
             padding: 50px;
-            background-color: aquamarine;
+            /* background-color: aquamarine; */
+            background-image:radial-gradient(circle, #faf7f5, #8766fd);
+            /* background-image: linear-gradient(to bottom right, #60d6fa, #f59af5); */
+            /* background-color:gradient(rgb); */
             margin-top: 5%;
             box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
         }
@@ -54,6 +58,8 @@
         #display-message {
             margin: 20px;
             font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+       
         }
 
         .dateClass {
@@ -100,19 +106,34 @@
             /* border:1px solid white; */
             border-radius: 5px;
             box-shadow: rgba(5, 330, 100, 55) 2px 6px 10px 5px;
+            text-shadow: 2px 2px 4px rgba(22, 172, 241, 0.10);
         }
 
         p {
             font-size: 22px;
             margin: 8px;
             font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            text-shadow: 2px 2px 4px rgba(22, 172, 241, 0.10);
+        }
+
+        #clearBtn{
+            height:35px;
+            width: 70px;
+            color: wheat;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            font-size:18px;
+            font-weight:500;
+            background-color: rgb(158, 43, 8);
+            border-radius: 5px;
+            border: 1px solid rgb(75, 2, 2);
+            box-shadow: rgba(5, 330, 100, 55) 2px 6px 10px 5px;
         }
     </style>
 </head>
 
 <body>
-
     <div class="main">
+        <form action="#" id="myForm">
         <div class="main-calculator">
             <h1>AGE CALCULATOR</h1>
             <p id="display-message">Enter Your Date of Birth </p>
@@ -134,27 +155,37 @@
                     <p>Days</p>
                 </div>
             </div>
+            <button id="clearBtn">Clear</button>
         </div>
+    </form>
     </div>
 
     <script>
         let calBtn = document.querySelector("button");
+
         calBtn.addEventListener('click', function () {
 
             let yearIs = document.getElementById('years');
             let monthsIs = document.getElementById('months');
             let daysIs = document.getElementById('days');
             let displayMessage = document.getElementById("display-message");
+
             let today = new Date();
 
 
             let userEnteDate = document.querySelector("input").value;
             let birthDateIs = new Date(userEnteDate);
-
-
+            console.log(birthDateIs);
+             
+            if(birthDateIs == 'Invalid Date'){
+                alert("Enter Your Date of Birth");
+                return;
+            }
+            
             if (birthDateIs > today) {
                 displayMessage.style.color = 'red';
                 displayMessage.innerText = "Birth date cannot be greater than today's date.";
+                // alert("Birth date cannot be greater than today's date.");
                 return;
             }
 
@@ -177,6 +208,7 @@
             }
 
             // Year
+
             var year = today.getFullYear() - birthDateIs.getFullYear();
             if (year < 0) {
                 months = 0;
@@ -187,6 +219,27 @@
             yearIs.innerText = year;
             monthsIs.innerText = months;
             daysIs.innerText = todayDays;
+        });
+
+
+        let clearButton = document.getElementById("clearBtn");
+
+        clearButton.addEventListener('click',function(){
+            // event.preventDefault();
+            var form = document.getElementById('myForm');
+            let yearIs = document.getElementById('years');
+            let monthsIs = document.getElementById('months');
+            let daysIs = document.getElementById('days');
+            let displayMessage = document.getElementById("display-message");
+            let clearButtonDeco = document.getElementById("clearBtn");
+            
+            yearIs.innerText = "-";
+            monthsIs.innerText = "-";
+            daysIs.innerText = "-";
+
+            displayMessage.innerText ="Enter Your Date of Birth";
+            displayMessage.style.color='black';
+            form.reset();
         });
 
     </script>
